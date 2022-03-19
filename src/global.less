@@ -1,0 +1,78 @@
+html {
+  box-sizing: border-box;
+  line-height: 1.4;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: IBM Plex Sans, sans-serif;
+  background-color: @background-color-base;
+  color: @text-color;
+  font-size: @font-size-base;
+}
+
+h1 {
+  font-size: @heading-1-size;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+a {
+  color: @accent-color;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: 1.2;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  overflow: hidden;
+  word-break: break-word;
+  padding: @padding-md;
+  font-weight: @btn-font-weight;
+  border: @bold-border-width @accent-color solid;
+  background-color: @accent-color;
+  border-radius: @border-radius-base;
+  color: @text-color-secondary;
+  box-shadow: 0 2px 4px rgba(44, 39, 56, 0.08), 0 4px 8px rgba(44, 39, 56, 0.08);
+
+  &:active:not(:disabled) {
+    box-shadow: 0 12px 24px rgba(44, 39, 56, 0.08), 0 24px 48px rgba(44, 39, 56, 0.16);
+  }
+
+  &:hover:not(:disabled) {
+    border-color: @accent-color-hover;
+    box-shadow: 0 2px 4px rgba(44, 39, 56, 0.0001), 0 4px 8px rgba(44, 39, 56, 0.08);
+  }
+
+  &:disabled {
+    background-color: @accent-color-disabled;
+    border-color: @accent-color-disabled;
+    color: @text-color-secondary-disabled;
+    box-shadow: 0 4px 8px rgba(44, 39, 56, 0.08);
+  }
+}
