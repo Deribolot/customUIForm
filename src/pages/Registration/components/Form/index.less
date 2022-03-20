@@ -1,0 +1,35 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.field,
+.checkbox {
+  width: 100%;
+  height: 100%;
+  padding: 0 @margin-lg;
+
+  &:not(:last-child) {
+    margin-bottom: @margin-xl;
+  }
+}
+
+.field > label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  input,
+  select {
+    margin-top: @margin-label;
+  }
+}
+
+.checkbox > label {
+  display: flex;
+
+  input {
+    margin-right: @margin-checkbox;
+  }
+}

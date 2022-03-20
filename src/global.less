@@ -3,13 +3,17 @@ html {
   line-height: 1.4;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
   margin: 0;
   padding: 0;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   width: 100%;
 }
@@ -45,28 +49,34 @@ textarea {
   line-height: 1.2;
 }
 
+label {
+  line-height: 1.2;
+}
+
 button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
+[type='button'],
+[type='reset'],
+[type='submit'] {
   -webkit-appearance: button;
   overflow: hidden;
   word-break: break-word;
   padding: @padding-md;
   font-weight: @btn-font-weight;
-  border: @bold-border-width @accent-color solid;
+  border: @border-width-bold @accent-color solid;
   background-color: @accent-color;
   border-radius: @border-radius-base;
   color: @text-color-secondary;
   box-shadow: 0 2px 4px rgba(44, 39, 56, 0.08), 0 4px 8px rgba(44, 39, 56, 0.08);
 
   &:active:not(:disabled) {
-    box-shadow: 0 12px 24px rgba(44, 39, 56, 0.08), 0 24px 48px rgba(44, 39, 56, 0.16);
+    box-shadow: 0 12px 24px rgba(44, 39, 56, 0.08),
+      0 24px 48px rgba(44, 39, 56, 0.16);
   }
 
   &:hover:not(:disabled) {
     border-color: @accent-color-hover;
-    box-shadow: 0 2px 4px rgba(44, 39, 56, 0.0001), 0 4px 8px rgba(44, 39, 56, 0.08);
+    box-shadow: 0 2px 4px rgba(44, 39, 56, 0.0001),
+      0 4px 8px rgba(44, 39, 56, 0.08);
   }
 
   &:disabled {
@@ -74,5 +84,37 @@ button,
     border-color: @accent-color-disabled;
     color: @text-color-secondary-disabled;
     box-shadow: 0 4px 8px rgba(44, 39, 56, 0.08);
+  }
+}
+
+label {
+  color: @text-color-label;
+  font-weight: 500;
+}
+
+input,
+select {
+  border: @border-width-base @accent-color-disabled solid;
+  padding: @padding-input;
+  border-radius: @border-radius-base;
+  box-shadow: 0 4px 8px rgba(44, 39, 56, 0.04);
+  outline: none;
+  color: @text-color;
+
+  &::placeholder {
+    color: @text-color-placeholder;
+  }
+
+  &:focus {
+    border: @border-width-bold @accent-color solid;
+    padding: @padding-input-focus;
+  }
+}
+
+.checkbox > label {
+  display: flex;
+
+  input {
+    margin-right: @margin-checkbox;
   }
 }

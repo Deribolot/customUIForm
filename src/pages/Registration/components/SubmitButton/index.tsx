@@ -4,15 +4,22 @@ import styles from './index.less';
 
 interface ISubmitButton {
   disabled?: boolean;
+  form: string;
 }
 
 const SubmitButton: React.FC<ISubmitButton> = function SubmitButton({
   disabled,
+  form,
 }) {
   const intl = useIntl();
 
   return (
-    <button type="submit" className={styles.submit} disabled={disabled}>
+    <button
+      type="submit"
+      className={styles.submit}
+      disabled={disabled}
+      form={form}
+    >
       {intl.formatMessage({ id: 'app.page.registration.register' })}
     </button>
   );
