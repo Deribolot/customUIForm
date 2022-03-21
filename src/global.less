@@ -95,7 +95,6 @@ label {
 input,
 select {
   border: @border-width-base @accent-color-disabled solid;
-  padding: @padding-input;
   border-radius: @border-radius-base;
   box-shadow: 0 4px 8px rgba(44, 39, 56, 0.04);
   outline: none;
@@ -107,14 +106,41 @@ select {
 
   &:focus {
     border: @border-width-bold @accent-color solid;
-    padding: @padding-input-focus;
   }
 }
 
-.checkbox > label {
-  display: flex;
+input:not([type='checkbox']),
+select {
+  padding: @padding-input;
 
-  input {
-    margin-right: @margin-checkbox;
+  &:focus {
+    padding: calc(@padding-input + @border-width-base - @border-width-bold);
+  }
+}
+
+input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  height: @height-checkbox;
+  width: @width-checkbox;
+
+  &::before {
+    content: url(~@/assets/checked.svg);
+    position: absolute;
+    top: @top-checked;
+    left: @left-checked;
+    visibility: hidden;
+  }
+
+  &:focus {
+    &::before {
+      top: calc(@top-checked + @border-width-base - @border-width-bold);
+      left: calc(@left-checked + @border-width-base - @border-width-bold);
+    }
+  }
+
+  &:checked::before {
+    visibility: visible;
   }
 }
