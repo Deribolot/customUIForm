@@ -1,0 +1,82 @@
+.details {
+  position: relative;
+
+  .summary {
+    display: block;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: url(~@/assets/arrowDown.svg);
+      position: absolute;
+      top: @top-input-icon;
+      right: @right-input-icon;
+    }
+
+    input[type='radio'] {
+      counter-increment: radios;
+      appearance: none;
+      display: none;
+      border: none;
+      outline: none;
+
+      &:checked {
+        display: inline;
+      }
+
+      &:after {
+        content: attr(title);
+        display: inline;
+        appearance: none;
+      }
+    }
+  }
+
+  .list {
+    background: @background-color-base;
+    position: absolute;
+    top: calc(100% + @top-select-list);
+    left: 0;
+    right: 0;
+    padding: @padding-select-list 0;
+    border: @border-width-base @accent-color-disabled solid;
+    border-radius: @border-radius-base;
+    max-height: @max-height-select-list;
+    overflow-y: auto;
+    counter-reset: labels;
+
+    li label {
+      padding: @padding-select-list;
+      font-weight: normal;
+      cursor: pointer;
+      display: block;
+
+      &.checked {
+        background-color: @secondary-color;
+      }
+    }
+  }
+
+  &[open] {
+    z-index: 1;
+
+    .summary {
+      &:before {
+        content: '';
+        display: block;
+        background: transparent;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+    }
+  }
+}

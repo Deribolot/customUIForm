@@ -39,10 +39,7 @@ a {
 }
 
 input,
-button,
-select,
-optgroup,
-textarea {
+button {
   color: inherit;
   font-size: inherit;
   font-family: inherit;
@@ -65,7 +62,7 @@ button,
   border: @border-width-bold @accent-color solid;
   background-color: @accent-color;
   border-radius: @border-radius-base;
-  color: @text-color-secondary;
+  color: @secondary-color;
   box-shadow: 0 2px 4px rgba(44, 39, 56, 0.08), 0 4px 8px rgba(44, 39, 56, 0.08);
 
   &:active:not(:disabled) {
@@ -82,7 +79,7 @@ button,
   &:disabled {
     background-color: @accent-color-disabled;
     border-color: @accent-color-disabled;
-    color: @text-color-secondary-disabled;
+    color: @secondary-color-disabled;
     box-shadow: 0 4px 8px rgba(44, 39, 56, 0.08);
   }
 }
@@ -92,8 +89,7 @@ label {
   font-weight: 500;
 }
 
-input,
-select {
+input {
   border: @border-width-base @accent-color-disabled solid;
   border-radius: @border-radius-base;
   box-shadow: 0 4px 8px rgba(44, 39, 56, 0.04);
@@ -109,8 +105,27 @@ select {
   }
 }
 
-input:not([type='checkbox']),
-select {
+.custom-select {
+  summary {
+    border: @border-width-base @accent-color-disabled solid;
+    border-radius: @border-radius-base;
+    box-shadow: 0 4px 8px rgba(44, 39, 56, 0.04);
+    outline: none;
+    color: @text-color;
+    padding: @padding-input;
+
+    [checked] {
+      color: @text-color-placeholder;
+    }
+  }
+
+  &[open] summary {
+    border: @border-width-bold @accent-color solid;
+    padding: calc(@padding-input + @border-width-base - @border-width-bold);
+  }
+}
+
+input:not([type='checkbox']):not([type='radio']) {
   padding: @padding-input;
 
   &:focus {
