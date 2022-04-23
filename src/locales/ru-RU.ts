@@ -10,6 +10,8 @@ export default {
   'app.page.registration.field.phoneNumber.placeholder':
     'Введите номер телефона',
   'app.page.registration.field.phoneNumber.label': 'Номер телефона',
+  'app.page.registration.field.phoneNumber.patternMismatch':
+    'Введено не корректное значение',
   'app.page.registration.field.language.placeholder': 'Язык',
   'app.page.registration.field.language.label': 'Язык',
   'app.page.registration.field.language.option.ru': 'Русский',

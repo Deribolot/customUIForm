@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import FormContext, { IFormContext } from '../FormContext';
 import styles from './index.less';
 
 interface IForm {
@@ -7,16 +8,23 @@ interface IForm {
 
 const Form: React.FC<IForm> = function Form({ children, id }) {
   return (
-    <form id={id} action="." className={styles.form}>
+    <form id={id} action="." className={styles.form} noValidate>
       {children}
     </form>
   );
 };
 
-export function getFieldDecorator(Field: React.FC): ReactElement {
+export function getFieldDecorator(Field: React.FC<IFormContext>): ReactElement {
   return (
     <div className={styles.field}>
-      <Field />
+      <FormContext.Consumer>
+        {({ addErrorField, deleteErrorField }) => (
+          <Field
+            addErrorField={addErrorField}
+            deleteErrorField={deleteErrorField}
+          />
+        )}
+      </FormContext.Consumer>
     </div>
   );
 }
