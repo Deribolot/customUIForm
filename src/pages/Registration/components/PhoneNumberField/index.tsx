@@ -16,7 +16,7 @@ const PhoneNumberField: React.FC<IFormContext> = function PhoneNumberField({
       if (event.currentTarget.validity.patternMismatch) {
         setError(
           intl.formatMessage({
-            id: 'app.page.registration.field.phoneNumber.patternMismatch',
+            id: 'app.page.registration.field.phoneNumber.invalid',
           }),
         );
         event.currentTarget.reportValidity();
@@ -28,13 +28,6 @@ const PhoneNumberField: React.FC<IFormContext> = function PhoneNumberField({
       }
     },
     [addErrorField, deleteErrorField, intl],
-  );
-
-  const handleInvalid = useCallback<FormEventHandler<HTMLInputElement>>(
-    (event) => {
-      event.preventDefault();
-    },
-    [],
   );
 
   const firstDigit = '\\+?\\d';
@@ -55,10 +48,8 @@ const PhoneNumberField: React.FC<IFormContext> = function PhoneNumberField({
         placeholder={intl.formatMessage({
           id: 'app.page.registration.field.phoneNumber.placeholder',
         })}
-        required
         pattern={`${firstDigit}${secondDigit}${thirdDigit}${fourthDigit}${fifthDigit}`}
         onInput={handleInput}
-        onInvalid={handleInvalid}
       />
       <span className="error" aria-live="polite">
         {error}

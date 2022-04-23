@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { FormEventHandler, ReactElement, useCallback } from 'react';
 import FormContext, { IFormContext } from '../FormContext';
 import styles from './index.less';
 
@@ -7,8 +7,21 @@ interface IForm {
 }
 
 const Form: React.FC<IForm> = function Form({ children, id }) {
+  const handleInvalid = useCallback<FormEventHandler<HTMLFormElement>>(
+    (event) => {
+      event.preventDefault();
+    },
+    [],
+  );
+
   return (
-    <form id={id} action="." className={styles.form} noValidate>
+    <form
+      id={id}
+      action="."
+      className={styles.form}
+      noValidate
+      onInvalid={handleInvalid}
+    >
       {children}
     </form>
   );

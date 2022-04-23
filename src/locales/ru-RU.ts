@@ -5,12 +5,13 @@ export default {
   'app.page.registration.register': 'Зарегистрироваться',
   'app.page.registration.field.name.placeholder': 'Введите Ваше имя',
   'app.page.registration.field.name.label': 'Имя',
+  'app.page.registration.field.name.invalid': 'Введено не корректное значение',
   'app.page.registration.field.email.placeholder': 'Введите ваш email',
   'app.page.registration.field.email.label': 'Еmail',
   'app.page.registration.field.phoneNumber.placeholder':
     'Введите номер телефона',
   'app.page.registration.field.phoneNumber.label': 'Номер телефона',
-  'app.page.registration.field.phoneNumber.patternMismatch':
+  'app.page.registration.field.phoneNumber.invalid':
     'Введено не корректное значение',
   'app.page.registration.field.language.placeholder': 'Язык',
   'app.page.registration.field.language.label': 'Язык',
