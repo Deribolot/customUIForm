@@ -1,6 +1,7 @@
 import React, { FormEventHandler, useCallback, useState } from 'react';
 import { useIntl } from '@@/plugin-locale/localeExports';
 import { IFormContext } from '@/pages/Registration/components/FormContext';
+import { GetInputHandler } from '@/pages/Registration/components/Form';
 
 const name = 'phoneNumber';
 
@@ -11,23 +12,23 @@ const NameField: React.FC<IFormContext> = function NameFieldReact({
   const intl = useIntl();
   const [error, setError] = useState<string>('');
 
+  const inputHandler = GetInputHandler({
+    name,
+    deleteErrorField,
+    addErrorField,
+  });
+
   const handleInput = useCallback<FormEventHandler<HTMLInputElement>>(
     (event) => {
-      if (event.currentTarget.validity.valid) {
-        setError('');
-        deleteErrorField(name);
-      } else {
-        setError(
-          intl.formatMessage({
-            id: 'app.page.registration.field.name.invalid',
-          }),
-        );
-        event.currentTarget.reportValidity();
-        addErrorField(name);
-        event.preventDefault();
-      }
+      setError(
+        inputHandler(event)
+          ? ''
+          : intl.formatMessage({
+              id: 'app.page.registration.field.name.invalid',
+            }),
+      );
     },
-    [addErrorField, deleteErrorField, intl],
+    [inputHandler, intl],
   );
 
   return (

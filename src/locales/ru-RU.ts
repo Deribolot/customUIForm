@@ -8,6 +8,7 @@ export default {
   'app.page.registration.field.name.invalid': 'Введено не корректное значение',
   'app.page.registration.field.email.placeholder': 'Введите ваш email',
   'app.page.registration.field.email.label': 'Еmail',
+  'app.page.registration.field.email.invalid': 'Введено не корректное значение',
   'app.page.registration.field.phoneNumber.placeholder':
     'Введите номер телефона',
   'app.page.registration.field.phoneNumber.label': 'Номер телефона',
