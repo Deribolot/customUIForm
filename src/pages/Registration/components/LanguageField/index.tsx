@@ -23,11 +23,10 @@ const LanguageField: React.FC = function LanguageField() {
   });
 
   const detailsClassname = useMemo<string>(
-    () =>
-      classnames({
-        'custom-select': true,
-        [styles.details]: true,
-      }),
+    () => classnames({
+      'custom-select': true,
+      [styles.details]: true,
+    }),
     [],
   );
 
@@ -48,12 +47,11 @@ const LanguageField: React.FC = function LanguageField() {
     [value],
   );
 
-  const handleValueChange = useCallback<
-    (e: React.FormEvent<HTMLInputElement>) => void
+  const handleValueChange = useCallback<(e: React.FormEvent<HTMLInputElement>) => void
   >((e) => {
-    const target = e.target as HTMLInputElement;
-    setValue(target.value);
-  }, []);
+      const target = e.target as HTMLInputElement;
+      setValue(target.value);
+    }, []);
 
   return (
     <label htmlFor="language">

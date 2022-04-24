@@ -5,10 +5,8 @@ import remove from 'lodash/remove';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SubmitButton from './components/SubmitButton';
-import Form, {
-  getFieldDecorator,
-  getCheckboxDecorator,
-} from './components/Form';
+import Form, { getCheckboxDecorator } from './components/Form';
+import InputFieldDecorator from './components/InputFieldDecorator';
 import NameField from './components/NameField';
 import EmailField from './components/EmailField';
 import PhoneNumberField from './components/PhoneNumberField';
@@ -17,7 +15,7 @@ import IAcceptTermsOfUseField from './components/IAcceptTermsOfUseField';
 import FormContext, { IFormContext } from './components/FormContext';
 
 export default function Registration() {
-  const [errorFields, setErrorFields] = useState<Array<string>>(['name']);
+  const [fieldErrors, setErrorFields] = useState<Array<string>>(['name']);
 
   const addErrorField = useCallback<IFormContext['addErrorField']>((field) => {
     setErrorFields((oldErrorFields) => {
@@ -46,8 +44,9 @@ export default function Registration() {
     () => ({
       addErrorField,
       deleteErrorField,
+      fieldErrors,
     }),
-    [addErrorField, deleteErrorField],
+    [addErrorField, deleteErrorField, fieldErrors],
   );
 
   return (
@@ -55,15 +54,15 @@ export default function Registration() {
       <Header />
       <Form id="registration">
         <FormContext.Provider value={newFormContext}>
-          {getFieldDecorator(NameField)}
-          {getFieldDecorator(EmailField)}
-          {getFieldDecorator(PhoneNumberField)}
-          {getFieldDecorator(LanguageField)}
+          <InputFieldDecorator component={NameField} name="name" />
+          <InputFieldDecorator component={EmailField} name="email" />
+          <InputFieldDecorator component={PhoneNumberField} name="phoneNumber" />
+          <InputFieldDecorator component={LanguageField} name="language" />
           {getCheckboxDecorator(IAcceptTermsOfUseField)}
         </FormContext.Provider>
       </Form>
       <Footer>
-        <SubmitButton form="registration" disabled={!isEmpty(errorFields)} />
+        <SubmitButton form="registration" disabled={!isEmpty(fieldErrors)} />
       </Footer>
     </>
   );

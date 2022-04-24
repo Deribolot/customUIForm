@@ -1,0 +1,19 @@
+.field {
+  width: 100%;
+  height: 100%;
+  padding: 0 @margin-lg;
+
+  &:not(:last-child) {
+    margin-bottom: @margin-xl;
+  }
+}
+
+.field > label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  & > :first-child {
+    margin-top: @margin-label;
+  }
+}

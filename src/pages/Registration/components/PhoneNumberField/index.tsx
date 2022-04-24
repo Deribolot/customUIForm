@@ -1,35 +1,14 @@
-import React, { FormEventHandler, useCallback, useState } from 'react';
+import React from 'react';
 import { useIntl } from '@@/plugin-locale/localeExports';
-import { GetInputHandler } from '@/pages/Registration/components/Form';
-import { IFormContext } from '../FormContext';
+import { IFieldComponent } from '@/pages/Registration/components/InputFieldDecorator';
 
-const name = 'phoneNumber';
-
-const PhoneNumberField: React.FC<IFormContext> = function PhoneNumberField({
-  addErrorField,
-  deleteErrorField,
+const PhoneNumberField: React.FC<IFieldComponent> = function PhoneNumberField({
+  onInput,
+  name,
+  hasError,
 }) {
   const intl = useIntl();
-  const [error, setError] = useState<string>('');
-
-  const inputHandler = GetInputHandler({
-    name,
-    deleteErrorField,
-    addErrorField,
-  });
-
-  const handleInput = useCallback<FormEventHandler<HTMLInputElement>>(
-    (event) => {
-      setError(
-        inputHandler(event)
-          ? ''
-          : intl.formatMessage({
-              id: 'app.page.registration.field.phoneNumber.invalid',
-            }),
-      );
-    },
-    [inputHandler, intl],
-  );
+  const errorText = hasError && intl.formatMessage({ id: 'app.page.registration.field.phoneNumber.invalid' });
 
   const firstDigit = '\\+?\\d';
   const secondDigit = '((\\(\\d{3}\\))|(\\d{3}))';
@@ -50,10 +29,10 @@ const PhoneNumberField: React.FC<IFormContext> = function PhoneNumberField({
           id: 'app.page.registration.field.phoneNumber.placeholder',
         })}
         pattern={`${firstDigit}${secondDigit}${thirdDigit}${fourthDigit}${fifthDigit}`}
-        onInput={handleInput}
+        onInput={onInput}
       />
       <span className="error" aria-live="polite">
-        {error}
+        {errorText}
       </span>
     </label>
   );

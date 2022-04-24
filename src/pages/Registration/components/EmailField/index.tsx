@@ -1,35 +1,10 @@
-import React, { FormEventHandler, useCallback, useState } from 'react';
+import React from 'react';
 import { useIntl } from '@@/plugin-locale/localeExports';
-import { GetInputHandler } from '@/pages/Registration/components/Form';
-import { IFormContext } from '../FormContext';
+import { IFieldComponent } from '@/pages/Registration/components/InputFieldDecorator';
 
-const name = 'email';
-
-const EmailField: React.FC<IFormContext> = function EmailField({
-  addErrorField,
-  deleteErrorField,
-}) {
+const EmailField: React.FC<IFieldComponent> = function EmailField({ onInput, name, hasError }) {
   const intl = useIntl();
-  const [error, setError] = useState<string>('');
-
-  const inputHandler = GetInputHandler({
-    name,
-    deleteErrorField,
-    addErrorField,
-  });
-
-  const handleInput = useCallback<FormEventHandler<HTMLInputElement>>(
-    (event) => {
-      setError(
-        inputHandler(event)
-          ? ''
-          : intl.formatMessage({
-              id: 'app.page.registration.field.email.invalid',
-            }),
-      );
-    },
-    [inputHandler, intl],
-  );
+  const errorText = hasError && intl.formatMessage({ id: 'app.page.registration.field.email.invalid' });
 
   return (
     <label htmlFor="email">
@@ -41,10 +16,10 @@ const EmailField: React.FC<IFormContext> = function EmailField({
         placeholder={intl.formatMessage({
           id: 'app.page.registration.field.email.placeholder',
         })}
-        onInput={handleInput}
+        onInput={onInput}
       />
       <span className="error" aria-live="polite">
-        {error}
+        {errorText}
       </span>
     </label>
   );
