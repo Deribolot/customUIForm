@@ -17,7 +17,7 @@ import IAcceptTermsOfUseField from './components/IAcceptTermsOfUseField';
 import FormContext, { IFormContext } from './components/FormContext';
 
 export default function Registration() {
-  const [errorFields, setErrorFields] = useState<Array<string>>([]);
+  const [errorFields, setErrorFields] = useState<Array<string>>(['name']);
 
   const addErrorField = useCallback<IFormContext['addErrorField']>((field) => {
     setErrorFields((oldErrorFields) => {

@@ -1,7 +1,7 @@
 import React, { FormEventHandler, useCallback, useState } from 'react';
 import { useIntl } from '@@/plugin-locale/localeExports';
-import { IFormContext } from '../FormContext';
 import { GetInputHandler } from '@/pages/Registration/components/Form';
+import { IFormContext } from '../FormContext';
 
 const name = 'phoneNumber';
 

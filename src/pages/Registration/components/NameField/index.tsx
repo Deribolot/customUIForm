@@ -3,14 +3,16 @@ import { useIntl } from '@@/plugin-locale/localeExports';
 import { IFormContext } from '@/pages/Registration/components/FormContext';
 import { GetInputHandler } from '@/pages/Registration/components/Form';
 
-const name = 'phoneNumber';
+const name = 'name';
 
 const NameField: React.FC<IFormContext> = function NameFieldReact({
   addErrorField,
   deleteErrorField,
 }) {
   const intl = useIntl();
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>(
+    intl.formatMessage({ id: 'app.page.registration.field.name.invalid' }),
+  );
 
   const inputHandler = GetInputHandler({
     name,
@@ -37,7 +39,7 @@ const NameField: React.FC<IFormContext> = function NameFieldReact({
       <input
         type="text"
         id="name"
-        name="name"
+        name={name}
         placeholder={intl.formatMessage({
           id: 'app.page.registration.field.name.placeholder',
         })}
