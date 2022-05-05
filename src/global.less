@@ -119,7 +119,11 @@ input {
     }
   }
 
-  &[open] summary {
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-within summary {
     border: @border-width-bold @accent-color solid;
     padding: calc(@padding-input + @border-width-base - @border-width-bold);
   }
