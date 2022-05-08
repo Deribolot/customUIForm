@@ -1,6 +1,7 @@
 import React from 'react';
 import { useIntl } from '@@/plugin-locale/localeExports';
 import { IFieldComponent } from '@/pages/Registration/components/InputFieldDecorator';
+import FieldError from '@/pages/Registration/components/FieldError';
 
 const EmailField: React.FC<IFieldComponent> = function EmailField({ onInput, name, hasError }) {
   const intl = useIntl();
@@ -18,9 +19,9 @@ const EmailField: React.FC<IFieldComponent> = function EmailField({ onInput, nam
         })}
         onInput={onInput}
       />
-      <span className="error" aria-live="polite">
+      <FieldError>
         {errorText}
-      </span>
+      </FieldError>
     </label>
   );
 };

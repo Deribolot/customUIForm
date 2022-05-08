@@ -1,6 +1,7 @@
 import React from 'react';
 import { useIntl } from '@@/plugin-locale/localeExports';
 import { IFieldComponent } from '@/pages/Registration/components/InputFieldDecorator';
+import FieldError from '@/pages/Registration/components/FieldError';
 
 const NameField: React.FC<IFieldComponent> = function NameField({ onInput, name, hasError }) {
   const intl = useIntl();
@@ -20,9 +21,9 @@ const NameField: React.FC<IFieldComponent> = function NameField({ onInput, name,
         pattern="([a-zA-ZА-Яа-яёЁ]|\s|-)+"
         onInput={onInput}
       />
-      <span className="error" aria-live="polite">
+      <FieldError>
         {errorText}
-      </span>
+      </FieldError>
     </label>
   );
 };

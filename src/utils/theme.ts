@@ -1,8 +1,11 @@
 export default {
   'background-color-base': '#FFFFFF',
   'font-size-base': '16px',
+  'font-size-sm': '14px',
+  'line-height-sm': '18px',
   'heading-1-size': '34px',
   'accent-color': '#0880AE',
+  'danger-color': '#FF7171',
   'accent-color-disabled': '#dbe2ea',
   'accent-color-hover': '#2C2738',
   'text-color': '#2C2738',

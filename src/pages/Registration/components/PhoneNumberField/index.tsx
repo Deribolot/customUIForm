@@ -1,6 +1,7 @@
 import React from 'react';
 import { useIntl } from '@@/plugin-locale/localeExports';
 import { IFieldComponent } from '@/pages/Registration/components/InputFieldDecorator';
+import FieldError from '@/pages/Registration/components/FieldError';
 
 const PhoneNumberField: React.FC<IFieldComponent> = function PhoneNumberField({
   onInput,
@@ -31,9 +32,9 @@ const PhoneNumberField: React.FC<IFieldComponent> = function PhoneNumberField({
         pattern={`${firstDigit}${secondDigit}${thirdDigit}${fourthDigit}${fifthDigit}`}
         onInput={onInput}
       />
-      <span className="error" aria-live="polite">
+      <FieldError>
         {errorText}
-      </span>
+      </FieldError>
     </label>
   );
 };
