@@ -90,6 +90,7 @@ const LanguageField: React.FC = function LanguageField() {
         >
           {map(languages, (lang) => (
             <input
+              tabIndex={-1}
               key={lang}
               type="radio"
               name="language"
@@ -104,6 +105,7 @@ const LanguageField: React.FC = function LanguageField() {
             />
           ))}
           <input
+            tabIndex={-1}
             type="radio"
             name="language"
             id="language-none"
