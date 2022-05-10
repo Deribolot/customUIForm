@@ -61,11 +61,29 @@ const LanguageField: React.FC = function LanguageField() {
 
       const { currentTarget: summary } = e;
 
+      const details = summary.parentElement as HTMLDetailsElement;
+      if (e.code === 'Escape') {
+        if (details.hasAttribute('open')) {
+          details.removeAttribute('open');
+        }
+        return;
+      }
+
+      if ((e.code === 'ArrowDown' || e.code === 'ArrowUp') && e.altKey) {
+        if (details.hasAttribute('open')) {
+          details.removeAttribute('open');
+        } else {
+          details.setAttribute('open', '');
+        }
+        return;
+      }
+
       if (e.code === 'ArrowDown' && index < length - 1) {
         setValue(languages[index + 1]);
         setTimeout(() => {
           summary.focus();
         }, 0);
+        return;
       }
 
       if (e.code === 'ArrowUp' && index > 0) {
