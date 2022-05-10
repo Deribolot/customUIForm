@@ -41,39 +41,51 @@ const LanguageField: React.FC = function LanguageField() {
 
   const handleValueChange = useCallback<(e: React.FormEvent<HTMLInputElement>) => void>((e) => {
     const target = e.target as HTMLInputElement;
+    const summary = target.parentElement as HTMLElement;
     setValue(target.value);
+    setTimeout(() => {
+      summary.focus();
+    }, 0);
   }, []);
 
-  const handleValueKeyUp = useCallback<(e: React.KeyboardEvent<HTMLInputElement>) => void>((e) => {
-    const { length } = languages;
+  const handleValueKeyUp = useCallback<(e: React.KeyboardEvent<HTMLElement>) => void>(
+    (e) => {
+      const { length } = languages;
 
-    let index = -1;
-    forEach(languages, (v, i) => {
-      if (value === v) {
-        index = i;
+      let index = -1;
+      forEach(languages, (v, i) => {
+        if (value === v) {
+          index = i;
+        }
+      });
+
+      const { currentTarget: summary } = e;
+
+      if (e.code === 'ArrowDown' && index < length - 1) {
+        setValue(languages[index + 1]);
+        setTimeout(() => {
+          summary.focus();
+        }, 0);
       }
-    });
 
-    if (e.code === 'ArrowDown' && index < length - 1) {
-      setValue(languages[index + 1]);
-    }
-
-    if (e.code === 'ArrowUp' && index > 0) {
-      setValue(languages[index - 1]);
-    }
-  }, [value]);
+      if (e.code === 'ArrowUp' && index > 0) {
+        setValue(languages[index - 1]);
+        setTimeout(() => {
+          summary.focus();
+        }, 0);
+      }
+    }, [value]);
 
   return (
     <label htmlFor="language" id="language-label">
       {intl.formatMessage({ id: 'app.page.registration.field.language.label' })}
       <details
         className={detailsClassname}
-        onChange={handleValueChange}
         role="listbox"
-        onKeyUp={handleValueKeyUp}
       >
         <summary
           className={styles.summary}
+          onKeyUp={handleValueKeyUp}
           aria-labelledby={`language-label${value ? ` language-${value}` : ''}`}
         >
           {map(languages, (lang) => (
@@ -87,6 +99,7 @@ const LanguageField: React.FC = function LanguageField() {
                 id: `app.page.registration.field.language.option.${lang}`,
               })}
               role="presentation"
+              onChange={handleValueChange}
               checked={value === lang}
             />
           ))}
@@ -103,7 +116,7 @@ const LanguageField: React.FC = function LanguageField() {
         <ul className={styles.list} role="presentation">
           {map(languages, (lang) => (
             <li role="option" aria-selected={value === lang} key={lang}>
-              <label htmlFor="language-ru" className={labelClassNames[lang]}>
+              <label htmlFor={`language-${lang}`} className={labelClassNames[lang]}>
                 {intl.formatMessage({
                   id: `app.page.registration.field.language.option.${lang}`,
                 })}
