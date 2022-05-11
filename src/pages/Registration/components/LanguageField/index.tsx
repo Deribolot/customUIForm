@@ -2,6 +2,8 @@ import React, { useMemo, useCallback, useState } from 'react';
 import classnames from 'classnames';
 import forEach from 'lodash/forEach';
 import map from 'lodash/map';
+import split from 'lodash/split';
+import last from 'lodash/last';
 import { useIntl } from '@@/plugin-locale/localeExports';
 import styles from './index.less';
 
@@ -23,6 +25,7 @@ const LanguageField: React.FC = function LanguageField() {
   );
 
   const [value, setValue] = useState<string | null>(null);
+  const [focusedValue, setFocusedValue] = useState<string | null>(null);
 
   const labelClassNames = useMemo<{
     ru: string;
@@ -31,18 +34,19 @@ const LanguageField: React.FC = function LanguageField() {
     es: string;
   }>(
     () => ({
-      ru: classnames({ [styles.checked]: value === 'ru' }),
-      en: classnames({ [styles.checked]: value === 'en' }),
-      zh: classnames({ [styles.checked]: value === 'zh' }),
-      es: classnames({ [styles.checked]: value === 'es' }),
+      ru: classnames({ [styles.focused]: focusedValue === 'ru' }),
+      en: classnames({ [styles.focused]: focusedValue === 'en' }),
+      zh: classnames({ [styles.focused]: focusedValue === 'zh' }),
+      es: classnames({ [styles.focused]: focusedValue === 'es' }),
     }),
-    [value],
+    [focusedValue],
   );
 
   const handleValueChange = useCallback<(e: React.FormEvent<HTMLInputElement>) => void>((e) => {
     const target = e.target as HTMLInputElement;
     const summary = target.parentElement as HTMLElement;
     setValue(target.value);
+    setFocusedValue(target.value);
     setTimeout(() => {
       summary.focus();
     }, 0);
@@ -51,13 +55,6 @@ const LanguageField: React.FC = function LanguageField() {
   const handleValueKeyUp = useCallback<(e: React.KeyboardEvent<HTMLElement>) => void>(
     (e) => {
       const { length } = languages;
-
-      let index = -1;
-      forEach(languages, (v, i) => {
-        if (value === v) {
-          index = i;
-        }
-      });
 
       const { currentTarget: summary } = e;
 
@@ -78,8 +75,16 @@ const LanguageField: React.FC = function LanguageField() {
         return;
       }
 
+      let index = -1;
+      forEach(languages, (v, i) => {
+        if (focusedValue === v) {
+          index = i;
+        }
+      });
+
       if (e.code === 'ArrowDown' && index < length - 1) {
         setValue(languages[index + 1]);
+        setFocusedValue(languages[index + 1]);
         setTimeout(() => {
           summary.focus();
         }, 0);
@@ -88,11 +93,18 @@ const LanguageField: React.FC = function LanguageField() {
 
       if (e.code === 'ArrowUp' && index > 0) {
         setValue(languages[index - 1]);
+        setFocusedValue(languages[index - 1]);
         setTimeout(() => {
           summary.focus();
         }, 0);
       }
-    }, [value]);
+    }, [focusedValue]);
+
+  const handleLabelMouseOver = useCallback<(e: React.MouseEvent<HTMLLabelElement>) => void>(
+    (e) => {
+      const target = e.target as HTMLLabelElement;
+      setFocusedValue(last(split(target.htmlFor, '-')) || null);
+    }, []);
 
   return (
     <label htmlFor="language" id="language-label">
@@ -136,7 +148,7 @@ const LanguageField: React.FC = function LanguageField() {
         <ul className={styles.list} role="presentation">
           {map(languages, (lang) => (
             <li role="option" aria-selected={value === lang} key={lang}>
-              <label htmlFor={`language-${lang}`} className={labelClassNames[lang]}>
+              <label htmlFor={`language-${lang}`} className={labelClassNames[lang]} onMouseOver={handleLabelMouseOver}>
                 {intl.formatMessage({
                   id: `app.page.registration.field.language.option.${lang}`,
                 })}
