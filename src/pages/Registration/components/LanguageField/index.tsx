@@ -42,7 +42,7 @@ const LanguageField: React.FC = function LanguageField() {
     [focusedValue],
   );
 
-  const handleValueChange = useCallback<(e: React.FormEvent<HTMLInputElement>) => void>((e) => {
+  const handleValueChange = useCallback<React.FormEventHandler<HTMLInputElement>>((e) => {
     const target = e.target as HTMLInputElement;
     const summary = target.parentElement as HTMLElement;
     setValue(target.value);
@@ -52,59 +52,51 @@ const LanguageField: React.FC = function LanguageField() {
     }, 0);
   }, []);
 
-  const handleValueKeyUp = useCallback<(e: React.KeyboardEvent<HTMLElement>) => void>(
-    (e) => {
-      const { length } = languages;
+  const handleValueKeyUp = useCallback<React.KeyboardEventHandler<HTMLElement>>((e) => {
+    const { length } = languages;
 
-      const { currentTarget: summary } = e;
+    const { currentTarget: summary } = e;
 
-      const details = summary.parentElement as HTMLDetailsElement;
-      if (e.code === 'Escape') {
-        if (details.hasAttribute('open')) {
-          details.removeAttribute('open');
-        }
-        return;
+    const details = summary.parentElement as HTMLDetailsElement;
+    if (e.code === 'Escape') {
+      if (details.hasAttribute('open')) {
+        details.removeAttribute('open');
       }
+      return;
+    }
 
-      if ((e.code === 'ArrowDown' || e.code === 'ArrowUp') && e.altKey) {
-        if (details.hasAttribute('open')) {
-          details.removeAttribute('open');
-        } else {
-          details.setAttribute('open', '');
-        }
-        return;
+    if ((e.code === 'ArrowDown' || e.code === 'ArrowUp') && e.altKey) {
+      if (details.hasAttribute('open')) {
+        details.removeAttribute('open');
+      } else {
+        details.setAttribute('open', '');
       }
+      return;
+    }
 
-      let index = -1;
-      forEach(languages, (v, i) => {
-        if (focusedValue === v) {
-          index = i;
-        }
-      });
-
-      if (e.code === 'ArrowDown' && index < length - 1) {
-        setValue(languages[index + 1]);
-        setFocusedValue(languages[index + 1]);
-        setTimeout(() => {
-          summary.focus();
-        }, 0);
-        return;
+    let index = -1;
+    forEach(languages, (v, i) => {
+      if (focusedValue === v) {
+        index = i;
       }
+    });
 
-      if (e.code === 'ArrowUp' && index > 0) {
-        setValue(languages[index - 1]);
-        setFocusedValue(languages[index - 1]);
-        setTimeout(() => {
-          summary.focus();
-        }, 0);
-      }
-    }, [focusedValue]);
+    if (e.code === 'ArrowDown' && index < length - 1) {
+      setValue(languages[index + 1]);
+      setFocusedValue(languages[index + 1]);
+      return;
+    }
 
-  const handleLabelMouseOver = useCallback<(e: React.MouseEvent<HTMLLabelElement>) => void>(
-    (e) => {
-      const target = e.target as HTMLLabelElement;
-      setFocusedValue(last(split(target.htmlFor, '-')) || null);
-    }, []);
+    if (e.code === 'ArrowUp' && index > 0) {
+      setValue(languages[index - 1]);
+      setFocusedValue(languages[index - 1]);
+    }
+  }, [focusedValue]);
+
+  const handleLabelMouseOver = useCallback<React.MouseEventHandler<HTMLLabelElement>>((e) => {
+    const target = e.target as HTMLLabelElement;
+    setFocusedValue(last(split(target.htmlFor, '-')) || null);
+  }, []);
 
   return (
     <label htmlFor="language" id="language-label">
@@ -141,7 +133,8 @@ const LanguageField: React.FC = function LanguageField() {
             id="language-none"
             value=""
             title={languageNoneTitle}
-            defaultChecked
+            checked={!value}
+            readOnly
             role="presentation"
           />
         </summary>
